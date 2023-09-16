@@ -50,7 +50,6 @@ class DeviceSerializer(serializers.ModelSerializer):
             device.checked_out_date = datetime.now()
         if device.checked_in:
             device.checked_in_date = datetime.now()
-
         device.save()
         return device
 

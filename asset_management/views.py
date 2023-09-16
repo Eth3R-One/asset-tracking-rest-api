@@ -188,32 +188,44 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
             "serial_number": 123,
             "checked_out": 0,
             "checked_out_to": ""
+            "condition": "",
+            "checked_out": false,
+            "checked_out_date": null,
+            "checked_in": false,
+            "checked_in_date": null,
+            "company": 8,
+            "checked_out_to": null
         }
+
+
     """
 
     @authentication_classes([BasicAuthentication, TokenAuthentication])
     def create_device(self, request):
         if request.method == "POST":
             company = get_object_or_404(Company, email=request.user.email)
+            if "name" not in request.data:
+                return Response(
+                    {"error": "Name is required"}, status=status.HTTP_400_BAD_REQUEST
+                )
             name = request.data["name"]
-            description = request.data["description"]
-            serial_number = request.data["serial_number"]
-            checked_out = request.data["checked_out"]
-            if "employee_id" in request.data:
-                checked_out_to = request.data["employee_id"]
-            else:
-                checked_out_to = ""
+            description = request.data.get("description", "")
+            serial_number = request.data.get("serial_number", "")
+            checked_out = request.data.get("checked_out", False)
+            checked_out_to = request.data.get("employee_id", "")
+            condition = request.data.get("condition", "")
 
-            serializer = DeviceSerializer(
-                data={
-                    "name": name,
-                    "description": description,
-                    "serial_number": serial_number,
-                    "checked_out": checked_out,
-                    "checked_out_to": checked_out_to,
-                    "company": company.id,
-                }
-            )
+
+            data = {
+                "name": name,
+                "description": description,
+                "serial_number": serial_number,
+                "checked_out": checked_out,
+                "checked_out_to": checked_out_to,
+                "company": company.id,
+                "condition": condition,
+            }
+            serializer = DeviceSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(
@@ -223,7 +235,7 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
                     },
                     status.HTTP_201_CREATED,
                 )
-            return Response({serializer.error}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     """
     update employee of the company by primary key (id)
@@ -312,3 +324,5 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
             },
             status=status.HTTP_204_NO_CONTENT,
         )
+    
+

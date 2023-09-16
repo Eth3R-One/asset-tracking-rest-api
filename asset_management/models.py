@@ -27,8 +27,8 @@ class Employee(models.Model):
 
 class Device(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField()
-    serial_number = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    serial_number = models.CharField(max_length=255, blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     checked_out = models.BooleanField(default=False)
     checked_out_date = models.DateTimeField(null=True, blank=True)
