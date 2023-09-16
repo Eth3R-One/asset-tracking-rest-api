@@ -67,6 +67,14 @@ python manage.py runserver
 
 See the API documentation at <http://127.0.0.1:8000/>
 
+> Note: The application is configured to use SQLite by default. To use a different database, update the DATABASES setting in settings.py.
+
+
+### Default Credentials
+Username:`admin`
+
+Password:`admin`
+
 ## Usage
 Access the admin panel at <http://127.0.0.1:8000/admin/> and log in with the superuser credentials to manage the application data.
 Use the provided API endpoints (e.g., /api/companies/, /api/employees/) for programmatic access to the application.
@@ -74,7 +82,17 @@ API Documentation
 API documentation can be found at /swagger/ when the application is running. Additionally, the provided API endpoints can be explored interactively through the Swagger UI.
 
 
+## Screenshots
+![Screenshot](./screenshots/1.png)
+![Screenshot](./screenshots/2.png)
+![Screenshot](./screenshots/3.png)
+![Screenshot](./screenshots/4.png)
+![Screenshot](./screenshots/5.png)
 
+## Demo
+![Demo](./screenshots/gifs/1.gif)
+![Demo](./screenshots/gifs/2.gif)
+![Demo](./screenshots/gifs/3.gif)
 
 # Contributing
 Contributions to this project are welcome. Feel free to open an issue or submit a pull request.

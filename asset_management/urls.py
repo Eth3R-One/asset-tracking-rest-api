@@ -51,14 +51,14 @@ urlpatterns = [
         views.CompanyViewSet.as_view({"post": "delete_device"}),
         name="company-delete-device",
     ),
-    path(
-        "company/checkout-device/",
-        views.CompanyViewSet.as_view({"post": "checkout_device"}),
-        name="company-checkout-device",
-    ),
-    path(
-        "company/checkin-device/",
-        views.CompanyViewSet.as_view({"post": "checkin_device"}),
-        name="company-checkin-device",
-    ),
+    # path(
+    #     "company/checkout-device/",
+    #     views.CompanyViewSet.as_view({"post": "checkout_device"}),
+    #     name="company-checkout-device",
+    # ),
+    # path(
+    #     "company/checkin-device/",
+    #     views.CompanyViewSet.as_view({"post": "checkin_device"}),
+    #     name="company-checkin-device",
+    # ),
 ]
