@@ -153,8 +153,8 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
     create an employee for the company
     * POST /company/create-employee/ ->  company-create-employee (POST)
         {
-            "name": "John Doe",
-            "email": "John@mail.com"
+            "name": "John Doe", // required
+            "email": "John@mail.com" // required
         }
     """
 
@@ -181,23 +181,23 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
 
     """
     create device for the company
-    * POST /company/create-device/ ->  company-create-employee (POST)
+    * POST /company/create-device/ ->  company-create-device (POST)
         {
             "name": "iphone",
-            "description": "iphone 15",
-            "serial_number": 123,
-            "checked_out": 0,
-            "checked_out_to": ""
-            "condition": "",
-            "checked_out": false,
-            "checked_out_date": null,
-            "checked_in": false,
-            "checked_in_date": null,
-            "company": 8,
-            "checked_out_to": null
+            "description": "iphone 15", // optional
+            "serial_number": 123,   // optional
+            "checked_out": 0,   // optional
+            "checked_out_to": ""   // optional
+            "condition": "",   // optional
+            "checked_out": false,   // optional
+            "checked_out_date": null,   // optional
+            "checked_in": false,   // optional
+            "checked_in_date": null,   // optional
+            "company": 8,   // optional
+            "checked_out_to": null   // optional
         }
 
-
+requirments
     """
 
     @authentication_classes([BasicAuthentication, TokenAuthentication])
@@ -241,19 +241,17 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
     update employee of the company by primary key (id)
     * POST /company/update-employee/ ->  company-update-employee (POST)
         {
-            "id": 12,
-            "name": "Satoshi Nakamoto",
-            "email": "sat@mail.com",
-            "company": 10
+            "name": "Satoshi Nakamoto", // optional
+            "email": "sat@mail.com", // optional
         }
     """
 
     @authentication_classes([BasicAuthentication, TokenAuthentication])
     def update_employee(self, request):
-        company = get_object_or_404(Company, email=request.user.email)
         employee = Employee.objects.get(pk=request.data["id"])
-        request.data["company"] = company.id
-        serializer = EmployeeSerializer(employee, data=request.data)
+        name = request.data.get("name", employee.name)
+        email = request.data.get("email", employee.email)
+        serializer = EmployeeSerializer(employee, data={"name": name, "email": email})
         if serializer.is_valid():
             serializer.save()
             return Response(
@@ -278,7 +276,24 @@ class CompanyViewSet(viewsets.ModelViewSet, APIView):
     def update_device(self, request):
         company = get_object_or_404(Company, email=request.user.email)
         device = get_object_or_404(Device, pk=request.data["id"])
-        serializer = DeviceSerializer(device, data=request.data)
+        name = request.data["name"]
+        description = request.data.get("description", "")
+        serial_number = request.data.get("serial_number", "")
+        checked_out = request.data.get("checked_out", False)
+        checked_out_to = request.data.get("employee_id", "")
+        checked_in = request.data.get("checked_in", False)
+        condition = request.data.get("condition", "")
+        data = {
+            "name": name,
+            "description": description,
+            "serial_number": serial_number,
+            "checked_out": checked_out,
+            "checked_out_to": checked_out_to,
+            "company": company.id,
+            "condition": condition,
+            "checked_in": checked_in,
+        }
+        serializer = DeviceSerializer(device, data=data)
         request.data["company"] = company.id
         if serializer.is_valid():
             serializer.save()
