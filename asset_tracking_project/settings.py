@@ -40,10 +40,8 @@ INSTALLED_APPS = [
     # Third party apps
     "rest_framework",
     "rest_framework.authtoken",
-    "rest_framework_swagger",  # for documating the API endpoints
     # Local apps
     "asset_management.apps.AssetManagementConfig",
-    #
 ]
 
 MIDDLEWARE = [
@@ -139,5 +137,3 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ]
 }
-
-REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"}
