@@ -21,12 +21,12 @@ git clone https://github.com/Eth3R-One/asset-tracking-rest-api.git
 ```
 
 
-Activate virtual environment:
+Create a virtual environment:
 ```
 python3 -m venv env
 ```
+Activate virtual environment:
 
-or
 
 ```
 source env/bin/activate
