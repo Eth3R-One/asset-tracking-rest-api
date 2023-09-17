@@ -340,4 +340,48 @@ requirments
             status=status.HTTP_204_NO_CONTENT,
         )
     
+    '''
+    checkout device by primary key
+    * POST /company/checkout-device/ ->  company-checkout-device (POST)
+        {
+            "device_id": 18,
+            "employee_id": 11
+        }
+    '''
+
+    def checkout_device(self, request):
+        device = Device.objects.get(pk=request.data["device_id"])
+        device.checked_out = True
+        employee = Employee.objects.get(pk=request.data["employee_id"])
+        device.checked_out_to = employee
+        device.save()
+        return Response(
+            {
+                "status": "Checked out",
+                "device": DeviceSerializer(device, many=False).data,
+            },
+            status=status.HTTP_200_OK,
+        )
+    
+    '''
+    checkout device by primary key
+    * POST /company/checkout-device/ ->  company-checkout-device (POST)
+        {
+        "device_id": 18
+        }
+    '''
+    
+    def checkin_device(self, request):
+        device = Device.objects.get(pk=request.data["device_id"])
+        device.checked_out = False
+        device.checked_out_to = None
+        device.save()
+        return Response(
+            {
+                "status": "Checked in",
+                "device": DeviceSerializer(device, many=False).data,
+            },
+            status=status.HTTP_200_OK,
+        )
+    
 

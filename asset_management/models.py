@@ -42,8 +42,12 @@ class Device(models.Model):
     def save(self):
         if self.checked_out:
             self.checked_out_date = datetime.now()
+        else:
+            self.checked_out_date = None
         if self.checked_in:
             self.checked_in_date = datetime.now()
+        else:
+            self.checked_in_date = None
 
         return super().save()
 
