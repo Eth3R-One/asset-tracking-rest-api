@@ -71,9 +71,22 @@ See the API documentation at <http://127.0.0.1:8000/>
 
 
 ### Default Credentials
-Username:`admin`
+This application comes with a default superuser account and some added companies. The default credentials are as follows:
 
-Password:`admin`
+for login into the database use the following credentials:
+> Superuser username: `admin`
+
+> Password: `admin`
+
+#### Some added companies
+
+|No.|name| email|pass|token|
+|---|---|---|---|---|
+| 1 | `Apple` | `apple@mail.com` | `123` | `5237bf3e8e428f0802c7ba68907d6bad1e2dd274` |
+| 2 | `Google` | `google@mail.com` | `123` | `6f94ac4e2274b350c0d65837f9efeecf13dfb60c`|
+| 3 | `Amazon` | `amazon@mail.com` | `123` | `7a81bea20b2c66b67107a6ecb3611d9f799d55f4`|
+
+
 
 ## Usage
 Access the admin panel at <http://127.0.0.1:8000/admin/> and log in with the superuser credentials to manage the application data.
