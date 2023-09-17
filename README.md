@@ -81,6 +81,27 @@ Use the provided API endpoints (e.g., /api/companies/, /api/employees/) for prog
 API Documentation
 API documentation can be found at /swagger/ when the application is running. Additionally, the provided API endpoints can be explored interactively through the Swagger UI.
 
+## API Endpoints
+The following endpoints are provided by the application:
+
+| Method | Endpoints | Description | { `required` }| optional |
+| --- | --- | --- |---|---|
+| POST | `signup/` | create an account for a company | `username, email, password`||
+| POST | `login/` | login to the account | `username, password` or `token`||
+| GET | `company/` | details of the company | `token` ||
+| GET | `company/devices/` | list of devices of the company | `token` ||
+| GET | `company/employees/` | list of employees of the company | `token` ||
+| POST | `company/create-device/` | create a device | `token, device_name` | `description, serial_number, condition`|
+| POST | `company/create-employee/` | create an employee | `token,  employee_name, employee_email` ||
+| POST | `company/checkout-device/` | checkout a device | `token, device_id, employee_id` ||
+| POST | `company/checkin-device/` | checkin a device | `token, device_id` ||
+| POST | `company/update-employee/` | update an employee | `token, employee_id` |`name, email`|
+| POST | `company/update-device/` | update a device |`token, device_id`| `device_name, device_description, serial_number, condition` |
+| POST | `company/delete-employee/` | delete an employee | `token, employee_id` |
+| POST | `company/delete-device/` | delete a device | `token, device_id` |
+
+
+
 
 ## Screenshots
 ![Screenshot](./screenshots/1.png)
